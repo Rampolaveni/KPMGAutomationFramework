@@ -3,6 +3,7 @@ package com.kpmg.webAutomation.common;
 import com.kpmg.webAutomation.controllers.DriverClass;
 import com.kpmg.webAutomation.controllers.DriverManager;
 import com.kpmg.webAutomation.controllers.SetUpTest;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.*;
 import java.time.Duration;
@@ -10,20 +11,20 @@ import java.time.Duration;
 
 public class Listeners implements ISuiteListener, ITestListener, IInvokedMethodListener, IAnnotationTransformer {
 
+    Logger log = Log4jUtil.loadLogger(Listeners.class);
+
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {
             String browserName = System.getProperty("browser").toLowerCase();
-            System.out.println("browser name passed from system property(JVM) " + browserName);
             WebDriver driver = DriverClass.createInstance(browserName);
             DriverManager.setDriver(driver);
             WebDriver driverInstance = DriverManager.getDriver();
             driverInstance.manage().deleteAllCookies();
             driverInstance.manage().window().maximize();
             driverInstance.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-            System.out.println("Browser Not launched + URL Not opened");
             driverInstance.get(SetUpTest.strUrlVal);
-            System.out.println("Browser launched + URL opened");
+            log.info("Browser launched + URL opened");
         }
     }
 

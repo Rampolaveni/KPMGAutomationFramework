@@ -1,6 +1,8 @@
 package com.kpmg.webAutomation.controllers;
 
 
+import com.kpmg.webAutomation.common.Log4jUtil;
+import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +14,7 @@ import java.util.Properties;
 
 public class SetUpTest extends DriverManager {
 
+    protected static Logger log = Log4jUtil.loadLogger(SetUpTest.class);
     public static String strUrlVal;
     protected static String strEnv;
     protected static Properties props;
@@ -20,11 +23,8 @@ public class SetUpTest extends DriverManager {
 
     @BeforeMethod(alwaysRun = true)
     public void startOfTest(ITestContext context) throws IOException {
-        //log.info("**************** START TEST ****************");
-        System.out.println("**************** START TEST ****************");
+        log.info("**************** START TEST ****************");
         strUrlVal = getURL(strEnv);
-
-
     }
 
     @AfterMethod(alwaysRun = true)
@@ -71,7 +71,6 @@ public class SetUpTest extends DriverManager {
         path = System.getProperty("user.dir");
 
         try {
-
             UTILS_FILE_PATH = path + "/src/main/resources/webConfig/environment.properties";
             props.load(new FileInputStream(UTILS_FILE_PATH));
 
@@ -89,6 +88,7 @@ public class SetUpTest extends DriverManager {
         if (env == null) {
             env = props.getProperty("defaultenv");
         }
+        else log.info("Environment: " + env);
         return env.toLowerCase();
     }
 

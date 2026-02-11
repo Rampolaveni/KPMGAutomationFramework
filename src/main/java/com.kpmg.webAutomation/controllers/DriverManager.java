@@ -8,8 +8,7 @@ public class DriverManager {
 
     public static void setDriver(WebDriver drv) {
         driver.set(drv);
-        System.out.println("In set driver method " +driver.get());
-
+        System.out.println("In set driver method " + driver.get());
     }
 
     public static WebDriver getDriver() {

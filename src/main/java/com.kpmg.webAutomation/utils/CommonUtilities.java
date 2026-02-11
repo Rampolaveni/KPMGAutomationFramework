@@ -1,18 +1,19 @@
 package com.kpmg.webAutomation.utils;
 
+import com.kpmg.webAutomation.common.Log4jUtil;
 import com.kpmg.webAutomation.controllers.DriverManager;
 import com.kpmg.webAutomation.controllers.SetUpTest;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-
 import static org.testng.AssertJUnit.assertTrue;
 
 public class CommonUtilities extends SetUpTest {
 
+    Logger log = Log4jUtil.loadLogger(CommonUtilities.class);
     protected WebDriver driverInstance = DriverManager.getDriver();
 
     public WebDriverWait driverWait() {
@@ -35,12 +36,12 @@ public class CommonUtilities extends SetUpTest {
             driverWait().until(ExpectedConditions.elementToBeClickable(locator));
             if (locator.isDisplayed()) {
                 locator.click();
-                System.out.println("Clicked on element");
+                log.info("Clicked on element :" + locator);
                 blnVal = true;
             }
 
         } catch (Exception e) {
-            System.out.println("Unable to click on element");
+            log.info("Unable to click on element :" + locator);
             e.printStackTrace();
             assertTrue(blnVal);
             throw (e);
@@ -57,16 +58,13 @@ public class CommonUtilities extends SetUpTest {
                     locator.clear();
                 }
                 locator.sendKeys(strData);
-                System.out.println("Text entered in the textbox is: " + strData);
+                log.info("Text entered in the textbox is: " + strData);
                 blnVal = true;
-
             }
         } catch (RuntimeException localRuntimeException) {
-            System.out.println("Unable to Enter the value in the Textbox :");
+            log.info("Unable to Enter the value in the Textbox :" + strData);
             throw (localRuntimeException);
         }
         return blnVal;
-
     }
-
 }

@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePageLocators {
 
-
     @FindBy(xpath = "//div/label[text()='Name:']/following-sibling::input[@id='name']")
     public WebElement btnName;
 

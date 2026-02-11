@@ -12,6 +12,7 @@ public class HomePageScenarios extends SetUpTest {
     }
 
     public void verifyUserDataFromHomePage() throws Exception {
+            log.info("Starting Home Page Scenario");
             homePageDAO = getHomePageDAO();
             homePageDAO.enterUserData();
     }

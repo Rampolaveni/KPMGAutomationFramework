@@ -6,16 +6,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-
-
-
 public class DriverClass {
-    //protected static Logger log = Log4jUtil.getLogger(DriverClass.class);
 
     public static WebDriver createInstance(String browserName) {
         WebDriver driver = null;
         if (browserName.toLowerCase().contains("firefox")) {
-            //log.info("User Directory is: " + System.getProperty("user.dir"));
             driver = new FirefoxDriver();
             return driver;
         }
@@ -24,8 +19,6 @@ public class DriverClass {
             return driver;
         }
         if (browserName.toLowerCase().contains("chrome")) {
-            //log.info("User Directory is: " + System.getProperty("user.dir"));
-
             ChromeOptions options = new ChromeOptions();
             options.addArguments("disable-infobars");
             options.addArguments("--disable-backgrounding-occluded-windows");
